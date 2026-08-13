@@ -187,6 +187,11 @@
                 <span class="info-label">Esterilizado:</span>
                 <span class="info-value" id="esterilizado">-</span>
             </div>
+            <!-- 👇 NUEVA FILA PARA DESCRIPCIÓN -->
+            <div class="info-row">
+                <span class="info-label">Descripción:</span>
+                <span class="info-value" id="descripcion">-</span>
+            </div>
 
             <div class="section-title" style="margin-top: 20px;">👤 Datos del propietario</div>
             <div class="info-row">
@@ -235,7 +240,8 @@
                 esterilizado: params.get('esterilizado') === 'true' ? 'Sí' : 'No',
                 propietario: params.get('propietario') || 'No registrado',
                 telefono: params.get('telefono') || 'No registrado',
-                email: params.get('email') || 'No registrado'
+                email: params.get('email') || 'No registrado',
+                descripcion: params.get('descripcion') || 'Sin descripción' // 👈 NUEVO
             };
         }
 
@@ -250,6 +256,7 @@
             document.getElementById('peso').textContent = data.peso;
             document.getElementById('sexo').textContent = data.sexo;
             document.getElementById('esterilizado').textContent = data.esterilizado;
+            document.getElementById('descripcion').textContent = data.descripcion; // 👈 NUEVO
             document.getElementById('propietario').textContent = data.propietario;
             document.getElementById('telefono').textContent = data.telefono;
             document.getElementById('email').textContent = data.email;
