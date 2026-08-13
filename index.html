@@ -5,21 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Información de Mascota - VetApp</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-        }
+        .container { max-width: 500px; margin: 0 auto; }
         .card {
             background: white;
             border-radius: 25px;
@@ -27,23 +20,10 @@
             margin-bottom: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .header .icon {
-            font-size: 60px;
-            margin-bottom: 5px;
-        }
-        .header h1 {
-            color: #4CAF50;
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-        .header p {
-            color: #666;
-            font-size: 14px;
-        }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header .icon { font-size: 60px; margin-bottom: 5px; }
+        .header h1 { color: #4CAF50; font-size: 28px; margin-bottom: 5px; }
+        .header p { color: #666; font-size: 14px; }
         .section-title {
             font-size: 18px;
             font-weight: bold;
@@ -58,18 +38,8 @@
             padding: 8px 0;
             border-bottom: 1px solid #f0f0f0;
         }
-        .info-label {
-            font-weight: 600;
-            color: #666;
-            width: 100px;
-            flex-shrink: 0;
-        }
-        .info-value {
-            color: #333;
-            font-weight: 500;
-            flex: 1;
-            word-break: break-word;
-        }
+        .info-label { font-weight: 600; color: #666; width: 100px; flex-shrink: 0; }
+        .info-value { color: #333; font-weight: 500; flex: 1; word-break: break-word; }
         .alert-box {
             background: #FFF3E0;
             border-left: 4px solid #FF9800;
@@ -77,12 +47,7 @@
             border-radius: 10px;
             margin-top: 20px;
         }
-        .alert-text {
-            color: #E65100;
-            font-weight: bold;
-            text-align: center;
-            font-size: 16px;
-        }
+        .alert-text { color: #E65100; font-weight: bold; text-align: center; font-size: 16px; }
         .footer {
             text-align: center;
             margin-top: 20px;
@@ -106,45 +71,26 @@
             font-weight: bold;
             font-size: 14px;
         }
-        .contact-btn.call {
-            background: #2196F3;
-        }
-        .contact-btn.whatsapp {
-            background: #25D366;
-        }
-        .contact-btn.email {
-            background: #FF9800;
-        }
-        .contact-btn.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-        .loading {
+        .contact-btn.call { background: #2196F3; }
+        .contact-btn.whatsapp { background: #25D366; }
+        .contact-btn.email { background: #FF9800; }
+        .contact-btn.disabled { opacity: 0.5; pointer-events: none; }
+        #fotoContainer {
             text-align: center;
-            padding: 40px;
-            color: #666;
+            margin-bottom: 15px;
         }
-        .error {
-            text-align: center;
-            padding: 40px;
-            color: #f44336;
+        #fotoMascota {
+            width: 150px;
+            height: 150px;
+            border-radius: 75px;
+            object-fit: cover;
+            border: 3px solid #4CAF50;
         }
         @media (max-width: 480px) {
-            .info-label {
-                width: 80px;
-                font-size: 13px;
-            }
-            .info-value {
-                font-size: 13px;
-            }
-            .card {
-                padding: 20px;
-            }
-            .contact-btn {
-                font-size: 12px;
-                padding: 10px;
-                min-width: 80px;
-            }
+            .info-label { width: 80px; font-size: 13px; }
+            .info-value { font-size: 13px; }
+            .card { padding: 20px; }
+            .contact-btn { font-size: 12px; padding: 10px; min-width: 80px; }
         }
         @media print {
             body { background: white; padding: 0; }
@@ -160,6 +106,11 @@
                 <div class="icon">🐾</div>
                 <h1 id="nombre">Cargando...</h1>
                 <p>¡Ayúdanos a encontrar a su familia!</p>
+            </div>
+
+            <!-- Foto de la mascota -->
+            <div id="fotoContainer" style="display: none;">
+                <img id="fotoMascota" src="" alt="Foto de la mascota">
             </div>
 
             <div class="section-title">📋 Datos de la mascota</div>
@@ -187,7 +138,6 @@
                 <span class="info-label">Esterilizado:</span>
                 <span class="info-value" id="esterilizado">-</span>
             </div>
-            <!-- 👇 NUEVA FILA PARA DESCRIPCIÓN -->
             <div class="info-row">
                 <span class="info-label">Descripción:</span>
                 <span class="info-value" id="descripcion">-</span>
@@ -226,7 +176,6 @@
     </div>
 
     <script>
-        // Función para obtener parámetros de la URL
         function getParams() {
             const params = new URLSearchParams(window.location.search);
             return {
@@ -241,11 +190,11 @@
                 propietario: params.get('propietario') || 'No registrado',
                 telefono: params.get('telefono') || 'No registrado',
                 email: params.get('email') || 'No registrado',
-                descripcion: params.get('descripcion') || 'Sin descripción' // 👈 NUEVO
+                descripcion: params.get('descripcion') || 'Sin descripción',
+                foto: params.get('foto') || '' // 👈 NUEVO
             };
         }
 
-        // Mostrar datos en la página
         function mostrarDatos() {
             const data = getParams();
             
@@ -256,10 +205,21 @@
             document.getElementById('peso').textContent = data.peso;
             document.getElementById('sexo').textContent = data.sexo;
             document.getElementById('esterilizado').textContent = data.esterilizado;
-            document.getElementById('descripcion').textContent = data.descripcion; // 👈 NUEVO
+            document.getElementById('descripcion').textContent = data.descripcion;
             document.getElementById('propietario').textContent = data.propietario;
             document.getElementById('telefono').textContent = data.telefono;
             document.getElementById('email').textContent = data.email;
+
+            // Mostrar foto si existe
+            const fotoUrl = data.foto;
+            const fotoContainer = document.getElementById('fotoContainer');
+            const fotoImg = document.getElementById('fotoMascota');
+            if (fotoUrl && fotoUrl !== '') {
+                fotoImg.src = fotoUrl;
+                fotoContainer.style.display = 'block';
+            } else {
+                fotoContainer.style.display = 'none';
+            }
 
             // Configurar botones de contacto
             const telefono = data.telefono;
@@ -291,11 +251,9 @@
                 btnEmail.href = '#';
             }
 
-            // Cambiar título de la página
             document.title = `🐾 ${data.nombre} - VetApp`;
         }
 
-        // Ejecutar al cargar la página
         mostrarDatos();
     </script>
 </body>
